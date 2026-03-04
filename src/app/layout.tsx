@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ShipFlip — MVP 마켓플레이스",
-  description: "바이브코딩 시대, 극초기 서비스를 사고파는 마켓플레이스. 개발자는 0→1, 운영자는 1→100.",
+  title: "ShipFlip — Buy & Sell Vibe-Coded MVPs",
+  description: "The marketplace for early-stage products. Developers build 0→1, operators scale 1→100. Buy and sell verified MVPs with safe escrow transfers.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="dark">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
