@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardContent } from "@/components/ui/card";
+import MessagesClient from "./page-client";
 
 export default async function MessagesPage() {
   const supabase = await createClient();
@@ -11,23 +11,5 @@ export default async function MessagesPage() {
 
   if (!user) redirect("/login");
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Messages</h1>
-        <p className="text-muted-foreground mt-1">
-          Your conversations with buyers and sellers.
-        </p>
-      </div>
-
-      <Card>
-        <CardContent className="py-12 text-center">
-          <p className="text-muted-foreground">No messages yet.</p>
-          <p className="text-sm text-muted-foreground mt-1">
-            Messaging will be available soon. Stay tuned!
-          </p>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  return <MessagesClient />;
 }

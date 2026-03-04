@@ -20,6 +20,7 @@ import {
 import { REVENUE_MODEL_LABELS } from "@/lib/types";
 import type { RevenueModel } from "@/lib/types";
 import { useState, useTransition, useEffect } from "react";
+import { useLocale } from "@/lib/i18n/context";
 
 const TECH_OPTIONS = [
   "Next.js", "React", "Vue", "Svelte", "Nuxt",
@@ -67,6 +68,7 @@ export default function NewListingPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
+  const { t } = useLocale();
 
   const {
     register,
@@ -129,8 +131,8 @@ export default function NewListingPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Create New Listing</h1>
-      <p className="mt-1 text-muted-foreground">List your MVP for sale on ShipFlip</p>
+      <h1 className="text-2xl font-bold">{t.createListing.title}</h1>
+      <p className="mt-1 text-muted-foreground">{t.createListing.subtitle}</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-8 max-w-2xl">
         {error && (
@@ -142,19 +144,19 @@ export default function NewListingPage() {
         {/* Basic Info */}
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="font-semibold text-lg">Basic Information</h2>
+            <h2 className="font-semibold text-lg">{t.createListing.basicInfo}</h2>
 
             <div className="space-y-2">
-              <Label htmlFor="title">Product Name</Label>
-              <Input id="title" placeholder="e.g. AI Newsletter SaaS" {...register("title")} />
+              <Label htmlFor="title">{t.createListing.productName}</Label>
+              <Input id="title" placeholder={t.createListing.productNamePlaceholder} {...register("title")} />
               {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="short_description">Short Description</Label>
+              <Label htmlFor="short_description">{t.createListing.shortDesc}</Label>
               <Input
                 id="short_description"
-                placeholder="One-line pitch for your product"
+                placeholder={t.createListing.shortDescPlaceholder}
                 {...register("short_description")}
               />
               {errors.short_description && (
@@ -163,10 +165,10 @@ export default function NewListingPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Full Description</Label>
+              <Label htmlFor="description">{t.createListing.fullDesc}</Label>
               <Textarea
                 id="description"
-                placeholder="Describe your product, its features, what's included in the sale..."
+                placeholder={t.createListing.fullDescPlaceholder}
                 rows={6}
                 {...register("description")}
               />
@@ -176,10 +178,10 @@ export default function NewListingPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="demo_url">Demo URL (optional)</Label>
+              <Label htmlFor="demo_url">{t.createListing.demoUrl}</Label>
               <Input
                 id="demo_url"
-                placeholder="https://your-app.vercel.app"
+                placeholder={t.createListing.demoUrlPlaceholder}
                 {...register("demo_url")}
               />
               {errors.demo_url && <p className="text-sm text-destructive">{errors.demo_url.message}</p>}
@@ -190,8 +192,8 @@ export default function NewListingPage() {
         {/* Tech Stack */}
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="font-semibold text-lg">Tech Stack</h2>
-            <p className="text-sm text-muted-foreground">Select the technologies used in your product</p>
+            <h2 className="font-semibold text-lg">{t.createListing.techStack}</h2>
+            <p className="text-sm text-muted-foreground">{t.createListing.techStackDesc}</p>
             <div className="flex flex-wrap gap-2">
               {TECH_OPTIONS.map((tech) => (
                 <button
@@ -214,13 +216,13 @@ export default function NewListingPage() {
         {/* Revenue & Metrics */}
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="font-semibold text-lg">Revenue & Metrics</h2>
+            <h2 className="font-semibold text-lg">{t.createListing.revenueMetrics}</h2>
 
             <div className="space-y-2">
-              <Label>Revenue Model</Label>
+              <Label>{t.createListing.revenueModel}</Label>
               <Select onValueChange={(v) => setValue("revenue_model_type", v)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a revenue model" />
+                  <SelectValue placeholder={t.createListing.selectRevenue} />
                 </SelectTrigger>
                 <SelectContent>
                   {(Object.entries(REVENUE_MODEL_LABELS) as [RevenueModel, string][]).map(
@@ -236,7 +238,7 @@ export default function NewListingPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="monthly_revenue">Monthly Revenue (USD)</Label>
+                <Label htmlFor="monthly_revenue">{t.createListing.monthlyRevenue}</Label>
                 <Input
                   id="monthly_revenue"
                   type="number"
@@ -246,7 +248,7 @@ export default function NewListingPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="monthly_users">Monthly Active Users</Label>
+                <Label htmlFor="monthly_users">{t.createListing.monthlyUsers}</Label>
                 <Input
                   id="monthly_users"
                   type="number"
@@ -262,9 +264,9 @@ export default function NewListingPage() {
         {/* Pricing */}
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="font-semibold text-lg">Asking Price</h2>
+            <h2 className="font-semibold text-lg">{t.createListing.askingPrice}</h2>
             <div className="space-y-2">
-              <Label htmlFor="asking_price">Price (USD)</Label>
+              <Label htmlFor="asking_price">{t.createListing.priceLabel}</Label>
               <Input
                 id="asking_price"
                 type="number"
@@ -281,10 +283,10 @@ export default function NewListingPage() {
 
         <div className="flex gap-4">
           <Button type="submit" disabled={isPending} className="px-8">
-            {isPending ? "Creating..." : "Create Listing"}
+            {isPending ? t.createListing.creating : t.createListing.create}
           </Button>
           <Button type="button" variant="outline" onClick={() => router.back()}>
-            Cancel
+            {t.createListing.cancel}
           </Button>
         </div>
       </form>

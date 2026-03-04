@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n/context";
 
 export function Footer() {
+  const { t } = useLocale();
+
   return (
     <footer className="border-t border-border/40">
       <div className="mx-auto max-w-6xl px-6 py-10">
@@ -12,8 +17,8 @@ export function Footer() {
             <span className="font-semibold">ShipFlip</span>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
-            <Link href="/legal/terms" className="hover:text-foreground transition-colors">Terms</Link>
-            <Link href="/legal/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+            <Link href="/legal/terms" className="hover:text-foreground transition-colors">{t.footer.terms}</Link>
+            <Link href="/legal/privacy" className="hover:text-foreground transition-colors">{t.footer.privacy}</Link>
           </div>
           <p className="text-sm text-muted-foreground">
             &copy; 2026 ShipFlip. All rights reserved.

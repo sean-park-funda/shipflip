@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Profile } from "@/lib/types";
+import { useLocale } from "@/lib/i18n/context";
 
 const profileSchema = z.object({
   display_name: z
@@ -54,6 +55,7 @@ export default function ProfilePage() {
     type: "success" | "error";
     text: string;
   } | null>(null);
+  const { t } = useLocale();
 
   const {
     register,
@@ -140,7 +142,7 @@ export default function ProfilePage() {
               : "Failed to update profile. Please try again.",
         });
       } else {
-        setMessage({ type: "success", text: "Profile updated successfully." });
+        setMessage({ type: "success", text: t.profilePage.saved });
       }
     });
   }
@@ -149,7 +151,7 @@ export default function ProfilePage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Profile</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t.profilePage.title}</h1>
           <p className="text-muted-foreground mt-1">Loading...</p>
         </div>
       </div>
@@ -159,9 +161,9 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Profile</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t.profilePage.title}</h1>
         <p className="text-muted-foreground mt-1">
-          Manage your public profile information.
+          {t.profilePage.subtitle}
         </p>
       </div>
 
@@ -169,10 +171,10 @@ export default function ProfilePage() {
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="display_name">Display Name</Label>
+              <Label htmlFor="display_name">{t.profilePage.displayName}</Label>
               <Input
                 id="display_name"
-                placeholder="Your display name"
+                placeholder={t.profilePage.displayName}
                 {...register("display_name")}
               />
               {errors.display_name && (
@@ -183,7 +185,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">{t.profilePage.username}</Label>
               <Input
                 id="username"
                 placeholder="your-username"
@@ -197,10 +199,10 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bio">Bio</Label>
+              <Label htmlFor="bio">{t.profilePage.bio}</Label>
               <Textarea
                 id="bio"
-                placeholder="Tell others about yourself..."
+                placeholder={t.profilePage.bio}
                 rows={4}
                 {...register("bio")}
               />
@@ -212,7 +214,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="website">Website</Label>
+              <Label htmlFor="website">{t.profilePage.website}</Label>
               <Input
                 id="website"
                 type="url"
@@ -227,7 +229,7 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="github_username">GitHub Username</Label>
+              <Label htmlFor="github_username">{t.profilePage.github}</Label>
               <Input
                 id="github_username"
                 placeholder="octocat"
@@ -253,7 +255,7 @@ export default function ProfilePage() {
             )}
 
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Saving..." : "Save Changes"}
+              {isPending ? t.profilePage.saving : t.profilePage.save}
             </Button>
           </form>
         </CardContent>
